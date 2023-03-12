@@ -1,0 +1,18 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary")
+
+js_binary(
+    name = "bin",
+    entry_point = glob(["bin.*"])[0],
+    data = glob(["*.js", "*.mjs", "*.cjs"]),
+)
+
+js_run_binary(
+    name = "gen",
+    tool = ":bin",
+    stdout = "out.txt",
+    stderr = "err.txt",
+    env = {
+        # Doesn't give much useful information.
+        # "NODE_DEBUG": "*",
+    },
+)
